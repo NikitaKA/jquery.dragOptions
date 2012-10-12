@@ -28,23 +28,25 @@
 
                 $(object).on("mousedown", "option", function(e){
 
-                    if (_v.initial.length || e.ctrlKey || e.shiftKey) return false;
+                    if (!_v.initial.length && !e.ctrlKey && !e.shiftKey) {
 
-                    _updateIndexes();
+                        _updateIndexes();
 
-                    _v.initial = [];
-                    _v.initialObjects = [];
-                    $("option", object).each(function(){
-                        _v.initial.push({
-                            key: $(this).val(),
-                            text: $(this).text()
+                        _v.initial = [];
+                        _v.initialObjects = [];
+                        $("option", object).each(function(){
+                            _v.initial.push({
+                                key: $(this).val(),
+                                text: $(this).text()
+                            });
+                            _v.initialObjects.push(this);
                         });
-                        _v.initialObjects.push(this);
-                    });
 
-                    $(this).text(_o.highlight+$(this).text());
-                    _v.drag = $(this).data("index")
-                    _v.current = _v.drag;
+                        $(this).text(_o.highlight+$(this).text());
+                        _v.drag = $(this).data("index")
+                        _v.current = _v.drag;
+                        
+                    }
 
                 }).on("mousemove", "option", function(){
 
