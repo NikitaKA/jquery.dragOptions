@@ -7,16 +7,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script src="jquery-1.7.2.min.js" type="text/javascript" language="javascript"></script>
     <script src="jquery.dragoptions-1.0.js" type="text/javascript" language="javascript"></script>
-</head>
-<body>
-
     <script>
         $(document).ready(function(){
-            $("#superselect").dragOptions({highlight: '-> '});
+            $("#select-single, #select-multiple").dragOptions({highlight: '-> '});
         });
     </script>
-
-    <select id="superselect" size="10" style="width: 200px;">
+</head>
+<body>
+    <h2>Single Select</h2>
+    <select id="select-single" size="10" style="width: 200px;">
         <option value="1">11</option>
         <option value="2">22</option>
         <option value="3">33</option>
@@ -24,5 +23,16 @@
         <option value="5">55</option>
     </select>
 
+    <br/><br/>
+
+    <h2>Multiple Select</h2>
+    <h3>but only one item drag at once</h3>
+    <select id="select-multiple" size="10" multiple style="width: 200px;">
+        <option value="1">11</option>
+        <option value="2">22</option>
+        <option value="3">33</option>
+        <option value="4">44</option>
+        <option value="5">55</option>
+    </select>
 </body>
 </html>
