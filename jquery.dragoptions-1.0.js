@@ -2,15 +2,8 @@
  Info:
   Plugin: dragOptions
   Version: 1.0
-  Browsers: Chrome, Firefox, Opera, Safari
   Author: Nikita Korobochkin
   E-mail: nikita.ak.85@gmail.com
-
- Usage:
-  $("select").dragOptions({});
-
- Options:
-  highlight: String  //Symbol to highlight current draggable option
 */
 
 (function($){
