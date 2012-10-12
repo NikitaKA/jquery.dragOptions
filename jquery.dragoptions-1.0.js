@@ -26,9 +26,9 @@
                 var _o = options;
                 var object = $(this);
 
-                $(object).on("mousedown", "option", function(){
+                $(object).on("mousedown", "option", function(e){
 
-                    if (_v.initial.length) return false;
+                    if (_v.initial.length || e.ctrlKey || e.shiftKey) return false;
 
                     _updateIndexes();
 
@@ -73,6 +73,8 @@
                                 $(this).text(showOptions[i].text);
                             }
                         });
+
+                        $("option", object).removeAttr('selected').eq(_v.current).attr('selected', 'selected');
                     }
 
                 }).on("mouseup", "option", function(){
@@ -94,7 +96,7 @@
                         }
                     }
 
-                    $("option", object).eq(_v.current).attr('selected', 'selected');
+                    $("option", object).removeAttr('selected').eq(_v.current).attr('selected', 'selected');
 
                     _updateIndexes();
 
