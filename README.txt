@@ -12,4 +12,4 @@ Usage:
 $("select").dragOptions({});
 
 Options:
-highlight: String  //Symbol to highlight current draggable option
+	highlight: 'String'  //Symbol(s) to highlight draggable option
