@@ -12,4 +12,6 @@ Usage:
 $("select").dragOptions({});
 
 Options:
-	highlight: 'String'  //Symbol(s) to highlight draggable option.
+	highlight: 'String'    // Symbol(s) to highlight draggable option.
+	onDrag: function(){}   // (v. 1.1) Callback while dragging an option.
+	onChange: function(){} // (v. 1.1) Callback after mouse button released (native onChange event fires too).

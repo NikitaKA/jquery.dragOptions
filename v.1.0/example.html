@@ -6,7 +6,7 @@
     <meta name="description" content="jQuery Draggable Select Options"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-    <script src="jquery.dragoptions.js" type="text/javascript" language="javascript"></script>
+    <script src="jquery.dragoptions-1.0.js" type="text/javascript" language="javascript"></script>
     <script>
         $(document).ready(function(){
             $("#select-single, #select-multiple").dragOptions({
@@ -17,6 +17,10 @@
                 onChange: function(){
                     console.log('onChange callback: ', this);
                 }
+            });
+
+            $("#select-single").on('change', function(){
+                console.log('change event: ', this);
             });
         });
     </script>
