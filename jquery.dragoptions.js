@@ -1,7 +1,7 @@
 /*
  Info:
   Plugin: dragOptions
-  Version: 1.1
+  Version: 1.2
   Author: Nikita Korobochkin
   E-mail: nikita.ak.85@gmail.com
 */
@@ -15,6 +15,13 @@
             };
 
             var options = $.extend(defaults, params);
+          
+            var curOption = null;
+            var isMouseDown = false;
+          
+            $(document.body).on("mouseup", function(){
+                isMouseDown = false;
+            });
 
             return this.each(function() {
 
@@ -28,12 +35,15 @@
 
                 $(object).on("mousedown", "option", function(e){
 
-                    if (!_v.initial.length && !e.ctrlKey && !e.shiftKey) {
+                    if (!isMouseDown && !_v.initial.length && !e.ctrlKey && !e.shiftKey) {
+                      
+                        isMouseDown = true;
 
                         _updateIndexes();
 
                         _v.initial = [];
                         _v.initialObjects = [];
+                      
                         $("option", object).each(function(){
                             _v.initial.push({
                                 key: $(this).val(),
@@ -46,13 +56,15 @@
                         _v.drag = $(this).data("index")
                         _v.current = _v.drag;
                         
+                        curOption = this;
                     }
 
                 }).on("mousemove", "option", function(){
 
-                    if (!_v.initial.length) return false;
+                    if (!isMouseDown && !_v.initial.length) return false;
 
                     _v.hover = $(this).data("index");
+                  
                     if (_v.current != _v.hover) {
                         _v.current = _v.hover;
 
@@ -107,8 +119,21 @@
                     _v.hover = -1;
                     _v.initial = [];
                     _v.initialObjects = [];
+                  
+                    curOption = null;
 
                     (_o.onChange || $.noop).call(object);
+                  
+                }).on("mouseleave", function(){
+                  
+                  $(curOption).trigger("mouseup");
+                  
+                }).on("mousemove", function(){
+                    
+                    if (!isMouseDown && curOption) {
+                        $(curOption).trigger("mouseup");
+                    }
+                  
                 });
 
                 var _updateIndexes = function(){
