@@ -1,7 +1,7 @@
 /*
  Info:
   Plugin: dragOptions
-  Version: 1.2
+  Version: 1.21
   Author: Nikita Korobochkin
   E-mail: nikita.ak.85@gmail.com
 */
@@ -36,30 +36,33 @@
                 $(object).on("mousedown", "option", function(e){
 
                     if (!isMouseDown && !_v.initial.length && !e.ctrlKey && !e.shiftKey) {
-                      
+
                         isMouseDown = true;
 
-                        _updateIndexes();
-
-                        _v.initial = [];
-                        _v.initialObjects = [];
-                      
-                        $("option", object).each(function(){
-                            _v.initial.push({
-                                key: $(this).val(),
-                                text: $(this).text()
-                            });
-                            _v.initialObjects.push(this);
-                        });
-
-                        $(this).text(_o.highlight+$(this).text());
-                        _v.drag = $(this).data("index")
-                        _v.current = _v.drag;
-                        
-                        curOption = this;
                     }
 
                 }).on("mousemove", "option", function(){
+
+                    if (isMouseDown && !_v.initial.length) {
+                      _updateIndexes();
+
+                      _v.initial = [];
+                      _v.initialObjects = [];
+
+                      $("option", object).each(function(){
+                        _v.initial.push({
+                          key: $(this).val(),
+                          text: $(this).text()
+                        });
+                        _v.initialObjects.push(this);
+                      });
+
+                      $(this).text(_o.highlight+$(this).text());
+                      _v.drag = $(this).data("index")
+                      _v.current = _v.drag;
+
+                      curOption = this;
+                    }
 
                     if (!isMouseDown && !_v.initial.length) return false;
 
@@ -95,7 +98,10 @@
 
                 }).on("mouseup", "option", function(){
 
-                    if (!_v.initial.length) return false;
+                    if (!_v.initial.length) {
+                        isMouseDown = false;
+                        return false;
+                    }
 
                     $("option", object).each(function(i){
                         $(this).text(_v.initial[i].text);
@@ -112,7 +118,7 @@
                         }
                     }
 
-                    $("option", object).removeAttr('selected').eq(_v.current).attr('selected', 'selected');
+                    $(object)[0].selectedIndex = _v.current;
 
                     _updateIndexes();
 
