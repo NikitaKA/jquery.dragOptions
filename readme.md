@@ -20,3 +20,6 @@ Example here: http://nikitaka.github.io/jquery.dragOptions/example.html
     onChange: function(){} // (v. 1.1) Callback after mouse button released.
 }
 ```
+
+### LICENSE
+[MIT](https://choosealicense.com/licenses/mit/)
