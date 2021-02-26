@@ -15,10 +15,10 @@
             };
 
             var options = $.extend(defaults, params);
-          
+
             var curOption = null;
             var isMouseDown = false;
-          
+
             $(document.body).on("mouseup", function(){
                 isMouseDown = false;
             });
@@ -67,7 +67,7 @@
                     if (!isMouseDown && !_v.initial.length) return false;
 
                     _v.hover = $(this).data("index");
-                  
+
                     if (_v.current != _v.hover) {
                         _v.current = _v.hover;
 
@@ -98,6 +98,10 @@
 
                 }).on("mouseup", "option", function(){
 
+                    setTimeout(function() {
+                        (_o.onSelect || $.noop).call(object.children("option:selected"));
+                    });
+
                     if (!_v.initial.length) {
                         isMouseDown = false;
                         return false;
@@ -125,21 +129,21 @@
                     _v.hover = -1;
                     _v.initial = [];
                     _v.initialObjects = [];
-                  
+
                     curOption = null;
 
                     (_o.onChange || $.noop).call(object);
-                  
+
                 }).on("mouseleave", function(){
-                  
+
                   $(curOption).trigger("mouseup");
-                  
+
                 }).on("mousemove", function(){
-                    
+
                     if (!isMouseDown && curOption) {
                         $(curOption).trigger("mouseup");
                     }
-                  
+
                 });
 
                 var _updateIndexes = function(){
